@@ -10,40 +10,49 @@ public class PlayerController : MonoBehaviour {
 
 	private bool isGrounded = true;
 	private bool moving = false;
+	private bool isAlive = false;
 
 	private bool movingForward = false;
 	private bool movingBack = false;
+	private bool jump = false;
 
 	public float speed = 3f;
 	public float jumpSpeed = 7f;
+	public float offset = 0.2f;
+
+	[SerializeField]
+	private BoxCollider2D boxCollider;
+
 	// Use this for initialization
 	void Start () {
 		if (instance == null) {
 			instance = this;
+			isAlive = true;
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (movingForward) {
-			MoveForward ();
-			moving = true;
-		} 
-		else if (movingBack) {
-			MoveBack();
-			moving = true;
-		} else {
-			moving = false;
-		}
+		if (isAlive) {
+			if (movingForward || Input.GetKey (KeyCode.RightArrow)) {
+				MoveForward ();
+				moving = true;
+			} else if (movingBack || Input.GetKey (KeyCode.LeftArrow)) {
+				MoveBack ();
+				moving = true;
+			} else {
+				moving = false;
+			}
 
-		if (Input.GetKey (KeyCode.UpArrow) && isGrounded) {
-			Jump ();
-		}
+			if ((jump || Input.GetKey (KeyCode.UpArrow)) && isGrounded) {
+				Jump ();
+			}
 
-		if (moving) {
-			StartAnimation ();
-		} else {
-			StopAnimation ();
+			if (moving) {
+				StartAnimation ();
+			} else {
+				StopAnimation ();
+			}
 		}
 	}
 
@@ -52,6 +61,7 @@ public class PlayerController : MonoBehaviour {
 		temp.x += Time.deltaTime * speed;
 		transform.position = temp;
 		RightDirection ();
+		moveOffestForCollider (offset);
 	}
 
 	private void MoveBack(){
@@ -59,9 +69,15 @@ public class PlayerController : MonoBehaviour {
 		temp.x -= Time.deltaTime * speed;
 		transform.position = temp;
 		LeftDirection ();
+		moveOffestForCollider (-offset);
 	}
 
-	public void Jump(){
+	public void jumpbtn(){
+		jump = true;
+	}
+
+	private void Jump(){
+		jump = false;
 		isGrounded = false;
 		GetComponent<Rigidbody2D> ().velocity = new Vector2 (0f, 1f) * jumpSpeed;
 	}
@@ -103,4 +119,26 @@ public class PlayerController : MonoBehaviour {
 	public void StopMovingLeft(){
 		movingBack = false;
 	}
+
+	public void setAlive(bool status){
+		isAlive = status;
+	}
+
+	public bool IsAlive(){
+		return isAlive;
+	}
+
+
+	private void moveOffestForCollider(float offest){
+		boxCollider.offset = new Vector2 (offest, 0f);
+	}
+
+	public void die(){
+		isAlive = false;
+		anim.speed = 10f;
+		anim.SetTrigger ("Die");
+		GameController.instance.NextLevel ();
+	}
+
+
 }
