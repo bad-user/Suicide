@@ -18,6 +18,7 @@ public class CharacterController2D : MonoBehaviour
 	public ControllerParameters2D Parameters { get { return _overrideParameters ?? DefaultParameters; } }
 	public GameObject StandingOn { get; private set; }
 	public Vector3 PlatformVelocity { get; private set; }
+	public GameObject PushedGameObject{ get; private set;}
 
 	public bool CanJump
 	{
@@ -40,6 +41,7 @@ public class CharacterController2D : MonoBehaviour
 	private ControllerParameters2D _overrideParameters;
 	private float _jumpIn;
 	private GameObject _lastStandingOn;
+	private bool _moveHorizontally;
 
 	private Vector3
 		_activeGlobalPlatformPoint,
@@ -101,13 +103,14 @@ public class CharacterController2D : MonoBehaviour
 		_jumpIn -= Time.deltaTime;
 		_velocity.y += Parameters.Gravity * Time.deltaTime;
 		Move(Velocity * Time.deltaTime);
+
 	}
 
 	private void Move(Vector2 deltaMovement)
 	{
 		var wasGrounded = State.IsCollidingBelow;
 		State.Reset();
-
+		_moveHorizontally = false;
 		if (HandleCollisions)
 		{
 			HandlePlatforms();
@@ -116,11 +119,16 @@ public class CharacterController2D : MonoBehaviour
 			if (deltaMovement.y < 0 && wasGrounded)
 				HandleVerticalSlope(ref deltaMovement);
 
-			if (Mathf.Abs(deltaMovement.x) > .001f)
-				MoveHorizontally(ref deltaMovement);
+			if (Mathf.Abs (deltaMovement.x) > .001f) {
+				MoveHorizontally (ref deltaMovement);
+				_moveHorizontally = true;
+			}
 
 			MoveVertically(ref deltaMovement);
 
+			if (_moveHorizontally) {
+				HandlePushObjects ();
+			}
 			CorrectHorizontalPlacement(ref deltaMovement, true);
 			CorrectHorizontalPlacement(ref deltaMovement, false);
 		}
@@ -230,6 +238,8 @@ public class CharacterController2D : MonoBehaviour
 			var rayCastHit = Physics2D.Raycast(rayVector, rayDirection, rayDistance, PlatformMask);
 			if (!rayCastHit)
 				continue;
+
+			PushedGameObject = rayCastHit.collider.gameObject;
 
 			if (i == 0 && HandleHorizontalSlope(ref deltaMovement, Vector2.Angle(rayCastHit.normal, Vector2.up), isGoingRight))
 				break;
@@ -354,21 +364,18 @@ public class CharacterController2D : MonoBehaviour
 		return true;
 	}
 
-//	public void OnTriggerEnter2D(Collider2D other)
-//	{
-//		var parameters = other.gameObject.GetComponent<ControllerPhsyicsVolume2D>();
-//		if (parameters == null)
-//			return;
-//
-//		_overrideParameters = parameters.Parameters;
-//	}
-//
-//	public void OnTriggerExit2D(Collider2D other)
-//	{
-//		var parameters = other.gameObject.GetComponent<ControllerPhsyicsVolume2D>();
-//		if (parameters == null)
-//			return;
-//
-//		_overrideParameters = null;
-//	}
+	private void HandlePushObjects(){
+		if (PushedGameObject == null || !State.IsGrounded)
+			return;
+		PushedGameObject.SendMessage ("onPlayerCollide",this,SendMessageOptions.DontRequireReceiver);
+		PushedGameObject = null;
+	}
+
+	public void OnTriggerEnter2D(Collider2D other)
+	{
+	}
+
+	public void OnTriggerExit2D(Collider2D other)
+	{
+	}
 }

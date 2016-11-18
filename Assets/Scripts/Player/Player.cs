@@ -95,6 +95,16 @@ public class Player : MonoBehaviour
 		_boxCollider.offset = _defaultoffsetOfCollider;
 
 	}
+
+	public void die(){
+		nextLevel ();
+	}
+
+	private void nextLevel(){
+		GameController.instance.NextLevel ();
+	}
+
+
 }
 
 
