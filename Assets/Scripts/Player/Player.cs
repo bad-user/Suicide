@@ -4,6 +4,8 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 
+	public static Player insatance;
+
 	private bool _isFacingRight;
 	private CharacterController2D _controller;
 	private float _normalizedHorizontalSpeed;
@@ -12,6 +14,7 @@ public class Player : MonoBehaviour
 	private Vector2 _defaultSizeOfCollider;
 	private Vector2 _defaultoffsetOfCollider;
 	private float _deltaColliderSize = 0.07f;
+	private bool _movingRight, _movingLeft, _movingUp;
 
 	public float MaxSpeed = 8f;
 	public float SpeedAccelerationOnGround = 10f;
@@ -20,12 +23,16 @@ public class Player : MonoBehaviour
 
 	public void Awake ()
 	{
-		_boxCollider = GetComponent<BoxCollider2D> ();
-		_spriteRenderer = GetComponent<SpriteRenderer> ();
-		_controller = GetComponent<CharacterController2D> ();
+		if (insatance == null) {
+			insatance = this;
+			_boxCollider = GetComponent<BoxCollider2D> ();
+			_spriteRenderer = GetComponent<SpriteRenderer> ();
+			_controller = GetComponent<CharacterController2D> ();
 
-		_defaultSizeOfCollider = _boxCollider.size;
-		_defaultoffsetOfCollider = _boxCollider.offset;
+			_defaultSizeOfCollider = _boxCollider.size;
+			_defaultoffsetOfCollider = _boxCollider.offset;
+			_movingLeft = _movingRight = false;
+		}
 	}
 
 	public void Start ()
@@ -43,13 +50,13 @@ public class Player : MonoBehaviour
 
 	private void HandleInput ()
 	{
-		if (Input.GetKey (KeyCode.RightArrow)) {
+		if (Input.GetKey (KeyCode.RightArrow) || _movingRight) {
 			_normalizedHorizontalSpeed = 1;
 			RunningAnimation ();
 			if (!_isFacingRight) {
 				Flip ();
 			}
-		} else if (Input.GetKey (KeyCode.LeftArrow)) {
+		} else if (Input.GetKey (KeyCode.LeftArrow) || _movingLeft) {
 			_normalizedHorizontalSpeed = -1;
 			RunningAnimation ();
 			if (_isFacingRight) {
@@ -60,8 +67,9 @@ public class Player : MonoBehaviour
 			IdleAnimation ();
 		}
 
-		if (_controller.CanJump && Input.GetKey (KeyCode.UpArrow)) {
+		if ((_movingUp || Input.GetKey (KeyCode.UpArrow)) && _controller.CanJump) {
 			_controller.Jump ();
+			_movingUp = false;
 		}
 	}
 
@@ -96,14 +104,48 @@ public class Player : MonoBehaviour
 
 	}
 
+	private void DieAnimation(){
+		Anim.speed = 100f;
+		Anim.SetBool ("Die", true);
+		Anim.speed = 1f;
+	}
+
 	public void die(){
-		nextLevel ();
+		DieAnimation ();
+		StartCoroutine (NextLeveCou());
 	}
 
 	private void nextLevel(){
 		GameController.instance.NextLevel ();
 	}
 
+	public void MoveRight(){
+		_movingRight = true;
+	}
+
+	public void StopMovingRight(){
+		_movingRight = false;
+	}
+
+	public void MoveLeft(){
+		_movingLeft = true;
+	}
+
+	public void StopMovingLeft(){
+		_movingLeft = false;
+	}
+
+	public void Jump(){
+		if (_controller.CanJump) {
+			_movingUp = true;
+		}
+	}
+
+
+	private IEnumerator NextLeveCou(){
+		yield return new WaitForSeconds (0.5f);
+		nextLevel();
+	}
 
 }
 

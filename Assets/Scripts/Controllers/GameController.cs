@@ -25,4 +25,6 @@ public class GameController : MonoBehaviour {
 		SceneManager.LoadScene (currnetLevel + 1);
 		currnetLevel++; 
 	}
+
+
 }
