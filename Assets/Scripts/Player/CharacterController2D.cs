@@ -73,12 +73,12 @@ public class CharacterController2D : MonoBehaviour
 
 	public void AddForce(Vector2 force)
 	{
-		_velocity = force;
+		_velocity += force;
 	}
 
 	public void SetForce(Vector2 force)
 	{
-		_velocity += force;
+		_velocity = force;
 	}
 
 	public void SetHorizontalForce(float x)

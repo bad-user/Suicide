@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 	public float SpeedAccelerationOnGround = 10f;
 	public float SpeedAccelerationInAir = 5f;
 	public Animator Anim;
+	public bool IsAlive { get; set;}
 
 	public void Awake ()
 	{
@@ -32,6 +33,8 @@ public class Player : MonoBehaviour
 			_defaultSizeOfCollider = _boxCollider.size;
 			_defaultoffsetOfCollider = _boxCollider.offset;
 			_movingLeft = _movingRight = false;
+
+			IsAlive = true;
 		}
 	}
 
@@ -42,10 +45,14 @@ public class Player : MonoBehaviour
 
 	public void Update ()
 	{
-		HandleInput ();
+		if (IsAlive) {
+			HandleInput ();
 
-		var movementFactor = _controller.State.IsGrounded ? SpeedAccelerationOnGround : SpeedAccelerationInAir;
-		_controller.SetHorizontalForce (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, movementFactor * Time.deltaTime));
+			var movementFactor = _controller.State.IsGrounded ? SpeedAccelerationOnGround : SpeedAccelerationInAir;
+			_controller.SetHorizontalForce (Mathf.Lerp (_controller.Velocity.x, _normalizedHorizontalSpeed * MaxSpeed, movementFactor * Time.deltaTime));
+		} else {
+			_controller.SetForce (Vector2.zero);
+		}
 	}
 
 	private void HandleInput ()
@@ -81,36 +88,40 @@ public class Player : MonoBehaviour
 
 	private void RunningAnimation ()
 	{
+		if (IsAlive) {
 
-		Anim.speed = 1f;
-		Anim.SetBool ("Running", true);
-		Vector2 newColliderSize = _defaultSizeOfCollider;
-		newColliderSize.x += _deltaColliderSize;
-		_boxCollider.size = newColliderSize;
+			Anim.speed = 1f;
+			Anim.SetBool ("Running", true);
+			Vector2 newColliderSize = _defaultSizeOfCollider;
+			newColliderSize.x += _deltaColliderSize;
+			_boxCollider.size = newColliderSize;
 
-		Vector2 newColliderOffest = _defaultoffsetOfCollider;
-		newColliderOffest.x += _deltaColliderSize;
-		newColliderOffest.x *= (_isFacingRight ? 1 : -1);
-		_boxCollider.offset = newColliderOffest;
+			Vector2 newColliderOffest = _defaultoffsetOfCollider;
+			newColliderOffest.x += _deltaColliderSize;
+			newColliderOffest.x *= (_isFacingRight ? 1 : -1);
+			_boxCollider.offset = newColliderOffest;
+		}
 
 	}
 
 	private void IdleAnimation ()
 	{
+		Anim.speed = 100f;
 		Anim.SetBool ("Running", false);
-		Anim.speed = 2.2f;
 		_boxCollider.size = _defaultSizeOfCollider;
 		_boxCollider.offset = _defaultoffsetOfCollider;
 
 	}
 
 	private void DieAnimation(){
-		Anim.speed = 100f;
-		Anim.SetBool ("Die", true);
 		Anim.speed = 1f;
+		Anim.SetBool ("Die", true);
+
 	}
 
 	public void die(){
+		IsAlive = false;
+		IdleAnimation ();
 		DieAnimation ();
 		StartCoroutine (NextLeveCou());
 	}
