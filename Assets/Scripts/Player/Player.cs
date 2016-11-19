@@ -123,6 +123,7 @@ public class Player : MonoBehaviour
 		IsAlive = false;
 		IdleAnimation ();
 		DieAnimation ();
+		Destroy (gameObject);
 		StartCoroutine (NextLeveCou());
 	}
 
