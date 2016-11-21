@@ -106,24 +106,26 @@ public class Player : MonoBehaviour
 
 	private void IdleAnimation ()
 	{
-		Anim.speed = 100f;
+		
 		Anim.SetBool ("Running", false);
+		Anim.speed = 100f;
 		_boxCollider.size = _defaultSizeOfCollider;
 		_boxCollider.offset = _defaultoffsetOfCollider;
 
 	}
 
 	private void DieAnimation(){
-		Anim.speed = 1f;
-		Anim.SetBool ("Die", true);
 
+
+		Anim.SetBool ("Die", true);
+		Anim.speed = 3f;
 	}
 
 	public void die(){
+		Debug.Log ("die");
 		IsAlive = false;
 		IdleAnimation ();
 		DieAnimation ();
-		Destroy (gameObject);
 		StartCoroutine (NextLeveCou());
 	}
 
