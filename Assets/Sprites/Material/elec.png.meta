@@ -1,0 +1,360 @@
+fileFormatVersion: 2
+guid: 05fd1e1e43dd99145af6b702c49b5b2e
+timeCreated: 1480233689
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: elec_0
+    21300002: elec_1
+    21300004: elec_2
+    21300006: elec_3
+    21300008: elec_4
+    21300010: elec_5
+    21300012: elec_6
+    21300014: elec_7
+    21300016: elec_8
+    21300018: elec_9
+    21300020: elec_10
+    21300022: elec_11
+    21300024: elec_12
+    21300026: elec_13
+    21300028: elec_14
+    21300030: elec_15
+    21300032: elec_16
+    21300034: elec_17
+    21300036: elec_18
+    21300038: elec_19
+    21300040: elec_20
+    21300042: elec_21
+    21300044: elec_22
+    21300046: elec_23
+    21300048: elec_24
+    21300050: elec_25
+    21300052: elec_26
+    21300054: elec_27
+    21300056: elec_28
+    21300058: elec_29
+    21300060: elec_30
+    21300062: elec_31
+    21300064: elec_32
+    21300066: elec_33
+    21300068: elec_34
+    21300070: elec_35
+    21300072: elec_36
+    21300074: elec_37
+    21300076: elec_38
+    21300078: elec_39
+    21300080: elec_40
+    21300082: elec_41
+    21300084: elec_42
+    21300086: elec_43
+    21300088: elec_44
+    21300090: elec_45
+    21300092: elec_46
+    21300094: elec_47
+    21300096: elec_48
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 120
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: Android
+    maxTextureSize: 1024
+    textureFormat: -3
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: elec_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 362.4
+        width: 94.6
+        height: 90.600006
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5000002}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_1
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 362.4
+        width: 94.600006
+        height: 90.600006
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_2
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 362.4
+        width: 94.6
+        height: 90.6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_3
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 362.4
+        width: 94.6
+        height: 90.6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_4
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 362.4
+        width: 94.6
+        height: 90.6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 263
+        width: 95
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_6
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 272.4
+        width: 94.6
+        height: 90.6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_7
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 272.4
+        width: 94.6
+        height: 90.6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_8
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 272.4
+        width: 94.6
+        height: 90.6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_9
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 272.4
+        width: 94.6
+        height: 90.6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 182
+        width: 95
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_11
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 182.4
+        width: 94.6
+        height: 90.6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_12
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 177
+        width: 95
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_13
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 168
+        width: 95
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_14
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 172
+        width: 95
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 78
+        width: 95
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_16
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 71
+        width: 95
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_17
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 91
+        width: 95
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: elec_18
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 92
+        width: 95
+        height: 69
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

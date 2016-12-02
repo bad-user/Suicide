@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
 public class Player : MonoBehaviour
 {
 
@@ -15,11 +17,22 @@ public class Player : MonoBehaviour
 	private Vector2 _defaultoffsetOfCollider;
 	private float _deltaColliderSize = 0.07f;
 	private bool _movingRight, _movingLeft, _movingUp;
+	private float _nextFire;
+	private bool _fire;
+	private bool _hasAGun;
+	private AudioSource _audioSource;
 
 	public float MaxSpeed = 8f;
 	public float SpeedAccelerationOnGround = 10f;
 	public float SpeedAccelerationInAir = 5f;
 	public Animator Anim;
+	public Transform BulletHolder;
+	public GameObject Bullet;
+	public float BulletSpeed = 6f;
+	public float FireRate = 0.15f;
+	public GameObject ExplosionObject;
+	public AudioClip GunTakenClip;
+
 	public bool IsAlive { get; set;}
 
 	public void Awake ()
@@ -29,12 +42,16 @@ public class Player : MonoBehaviour
 			_boxCollider = GetComponent<BoxCollider2D> ();
 			_spriteRenderer = GetComponent<SpriteRenderer> ();
 			_controller = GetComponent<CharacterController2D> ();
+			_audioSource = GetComponent<AudioSource> ();
 
 			_defaultSizeOfCollider = _boxCollider.size;
 			_defaultoffsetOfCollider = _boxCollider.offset;
 			_movingLeft = _movingRight = false;
+			_hasAGun = false;
 
 			IsAlive = true;
+
+			BulletControllor.speed = BulletSpeed;
 		}
 	}
 
@@ -78,12 +95,34 @@ public class Player : MonoBehaviour
 			_controller.Jump ();
 			_movingUp = false;
 		}
+
+		if ((Input.GetKey(KeyCode.Space) || _fire)&& Time.time > _nextFire )
+		{
+			_nextFire = Time.time + FireRate;
+			shoot ();
+			_fire = false;
+		}
+	}
+
+	private void shoot(){
+		if (_hasAGun) {
+			GameObject b = Instantiate (Bullet, BulletHolder.position, BulletHolder.localRotation) as GameObject;
+			//set directio to right when pass 1 or left when pass -1
+			if (_isFacingRight) {
+				b.GetComponent<BulletControllor> ().SetDirection (1);
+			} else {
+				b.GetComponent<BulletControllor> ().SetDirection (-1);
+			}
+
+		}
 	}
 
 	private void Flip ()
 	{
 		_isFacingRight = _spriteRenderer.flipX;
 		_spriteRenderer.flipX = !_spriteRenderer.flipX;
+		BulletHolder.localPosition = -1 * BulletHolder.localPosition;
+
 	}
 
 	private void RunningAnimation ()
@@ -122,16 +161,14 @@ public class Player : MonoBehaviour
 	}
 
 	public void die(){
-		Debug.Log ("die");
 		IsAlive = false;
-		IdleAnimation ();
-		DieAnimation ();
-		StartCoroutine (NextLeveCou());
+		Instantiate (ExplosionObject, transform.position, transform.rotation);
+		GameController.instance.NextLevel ();
+		Destroy (gameObject);
+
 	}
 
-	private void nextLevel(){
-		GameController.instance.NextLevel ();
-	}
+		
 
 	public void MoveRight(){
 		_movingRight = true;
@@ -155,11 +192,19 @@ public class Player : MonoBehaviour
 		}
 	}
 
-
-	private IEnumerator NextLeveCou(){
-		yield return new WaitForSeconds (0.5f);
-		nextLevel();
+	public void Fire(){
+		_fire = true;
 	}
+
+	public void OnTriggerEnter2D(Collider2D coll){
+		if (coll.tag == "Gun") {
+			_hasAGun = true;
+			Destroy (coll.gameObject);
+			_audioSource.PlayOneShot (GunTakenClip);
+		}
+	}
+
+
 
 }
 
